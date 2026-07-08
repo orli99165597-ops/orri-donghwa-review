@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디지털 오르리 후기 모음</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep: #1a5c3a;
+    --mid: #3aaa6e;
+    --cream: #f7f5ee;
+    --card: #ffffff;
+    --ink: #1f2a24;
+    --ink-soft: #5c6b62;
+    --line: #e5e1d6;
+    --gold: #d9a441;
+    --danger: #c1483f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Noto Sans KR', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 20px 80px;}
+
+  /* header */
+  header{
+    display:flex;align-items:center;gap:16px;
+    padding:32px 0 20px;
+  }
+  .turtle-badge{
+    width:56px;height:56px;border-radius:16px;
+    background:linear-gradient(135deg,var(--deep),var(--mid));
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;flex-shrink:0;
+    box-shadow:0 4px 14px rgba(26,92,58,0.25);
+  }
+  .brand-name{font-size:13px;letter-spacing:0.06em;color:var(--ink-soft);font-weight:500;}
+  h1{
+    font-family:'Gowun Batang', serif;
+    font-size:24px;margin:2px 0 0;color:var(--deep);font-weight:700;
+  }
+  .tagline{font-size:12px;color:var(--ink-soft);margin-top:4px;}
+  hr.divider{border:none;border-top:2px solid var(--mid);margin:8px 0 28px;}
+
+  /* progress turtle */
+  .progress-strip{
+    display:flex;align-items:center;gap:10px;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:12px 16px;margin-bottom:24px;
+    font-size:13px;color:var(--ink-soft);
+  }
+  .progress-strip b{color:var(--deep);}
+
+  /* card */
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:24px 22px;
+    margin-bottom:16px;
+  }
+  .q-num{
+    display:inline-block;font-size:12px;font-weight:700;color:var(--mid);
+    margin-bottom:6px;
+  }
+  label.q-title{
+    display:block;font-size:16px;font-weight:700;margin-bottom:4px;
+  }
+  .required{color:var(--danger);}
+  .hint{font-size:12.5px;color:var(--ink-soft);margin-bottom:12px;}
+  input[type=text], input[type=tel], input[type=email], textarea, select{
+    width:100%;border:1px solid var(--line);background:#fbfaf6;
+    border-radius:10px;padding:13px 14px;font-size:15px;font-family:inherit;
+    color:var(--ink);outline:none;transition:border-color .15s;
+  }
+  input:focus, textarea:focus, select:focus{border-color:var(--mid);background:#fff;}
+  textarea{min-height:140px;resize:vertical;line-height:1.55;}
+  .star-row{display:flex;gap:6px;margin-top:4px;}
+  .star{font-size:28px;cursor:pointer;color:#dcd7c8;user-select:none;transition:color .1s;}
+  .star.active{color:var(--gold);}
+  .agree-row{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;}
+  .agree-row input{width:auto;accent-color:var(--mid);width:20px;height:20px;}
+
+  .submit-btn{
+    width:100%;padding:16px;border:none;border-radius:12px;
+    background:var(--mid);color:#fff;font-size:16px;font-weight:700;
+    cursor:pointer;letter-spacing:0.02em;transition:background .15s, transform .1s;
+    font-family:inherit;
+  }
+  .submit-btn:hover{background:var(--deep);}
+  .submit-btn:active{transform:scale(0.99);}
+  .submit-btn:disabled{background:#c9c4b4;cursor:not-allowed;}
+  .error-msg{color:var(--danger);font-size:13px;margin-top:10px;display:none;}
+
+  /* thank you */
+  .thanks{
+    text-align:center;padding:60px 20px;
+  }
+  .thanks .turtle-badge{margin:0 auto 20px;}
+  .thanks h2{font-family:'Gowun Batang',serif;font-size:22px;color:var(--deep);margin-bottom:10px;}
+  .thanks p{color:var(--ink-soft);font-size:14.5px;line-height:1.6;margin-bottom:28px;}
+  .dl-btn{
+    display:inline-block;background:var(--deep);color:#fff;text-decoration:none;
+    padding:15px 28px;border-radius:12px;font-weight:700;font-size:15px;
+  }
+  .dl-btn:hover{background:var(--mid);}
+  .again-link{display:block;margin-top:22px;font-size:13px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit;}
+
+  /* admin */
+  .admin-gate{max-width:360px;margin:100px auto;text-align:center;}
+  .admin-gate .turtle-badge{margin:0 auto 18px;}
+  .admin-gate input{margin:14px 0;}
+  .admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .stat-row{display:flex;gap:10px;margin-bottom:20px;}
+  .stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;}
+  .stat .num{font-size:22px;font-weight:900;color:var(--deep);}
+  .stat .lbl{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+  .filter-row{display:flex;gap:8px;margin-bottom:16px;}
+  .filter-row select, .filter-row input{flex:1;}
+  .review-item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
+  .review-item .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+  .review-item .who{font-weight:700;font-size:14.5px;}
+  .review-item .meta{font-size:11.5px;color:var(--ink-soft);}
+  .review-item .stars{color:var(--gold);font-size:13px;margin-bottom:6px;}
+  .review-item .content{font-size:14px;line-height:1.6;white-space:pre-wrap;color:var(--ink);}
+  .review-item .contact{font-size:12px;color:var(--ink-soft);margin-top:8px;}
+  .toolbar{display:flex;gap:8px;margin-bottom:14px;}
+  .toolbar button, .settings-btn{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink);
+    font-family:inherit;
+  }
+  .toolbar button:hover{border-color:var(--mid);color:var(--deep);}
+  .empty-state{text-align:center;padding:50px 10px;color:var(--ink-soft);font-size:14px;}
+  .settings-panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:20px;}
+  .settings-panel label{display:block;font-size:12.5px;font-weight:700;color:var(--ink-soft);margin:12px 0 6px;}
+  .settings-panel label:first-child{margin-top:0;}
+  .save-row{display:flex;gap:8px;margin-top:14px;}
+  .save-row button{flex:1;padding:11px;border-radius:10px;border:none;background:var(--mid);color:#fff;font-weight:700;cursor:pointer;font-family:inherit;}
+  .footer-admin-link{text-align:center;margin-top:30px;}
+  .footer-admin-link button{background:none;border:none;color:var(--ink-soft);font-size:11.5px;text-decoration:underline;cursor:pointer;font-family:inherit;}
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    background:var(--deep);color:#fff;padding:12px 20px;border-radius:10px;
+    font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:50;
+  }
+  .toast.show{opacity:1;}
+  .loading{text-align:center;padding:60px;color:var(--ink-soft);font-size:13px;}
+
+  @media (max-width: 380px){
+    header{gap:12px;padding:24px 0 16px;}
+    .turtle-badge{width:44px;height:44px;font-size:22px;border-radius:12px;}
+    h1{font-size:19px;}
+    .brand-name{font-size:11.5px;}
+    .tagline{font-size:11px;}
+  }
+</style>
+</head>
+<body>
+<div id="root" class="wrap"></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby3dg9hhPY39yxEcviisRTbqDSrVzcnrykDTx-0e541Pne0j2K2nsfNrp2cQbqJCoQm/exec';
+
+const DEFAULTS = {
+  lectureTitle: '오르리 AI 동화 특강',
+  downloadLink: ''
+};
+
+let config = {...DEFAULTS};
+let reviews = [];
+let view = 'loading'; // loading | form | thanks | admin-gate | admin
+let adminAuthed = false;
+let adminPasswordUsed = '';
+let rating = 0;
+let adminFilter = '';
+let lastSubmittedLink = '';
+
+const root = document.getElementById('root');
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+async function loadConfig(){
+  if(!SCRIPT_URL) return; // 아직 배포 전이면 기본값 사용
+  try{
+    const res = await fetch(SCRIPT_URL + '?type=config');
+    const data = await res.json();
+    config = {...DEFAULTS, ...data};
+  }catch(e){ console.error('config load failed', e); }
+}
+
+async function loadReviews(){
+  if(!SCRIPT_URL) { reviews = []; return; }
+  try{
+    const res = await fetch(SCRIPT_URL);
+    const data = await res.json();
+    reviews = Array.isArray(data) ? data.reverse() : [];
+  }catch(e){ console.error('reviews load failed', e); reviews = []; }
+}
+
+async function submitReview(data){
+  if(!SCRIPT_URL) throw new Error('SCRIPT_URL 미설정');
+  await fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify({type:'review', ...data})
+  });
+}
+
+function starHtml(active){
+  let h = '<div class="star-row" id="starRow">';
+  for(let i=1;i<=5;i++){
+    h += `<span class="star ${i<=active?'active':''}" data-v="${i}" onclick="setRating(${i})">★</span>`;
+  }
+  h += '</div>';
+  return h;
+}
+
+window.setRating = function(v){
+  rating = v;
+  document.querySelectorAll('.star').forEach(s=>{
+    s.classList.toggle('active', parseInt(s.dataset.v) <= v);
+  });
+};
+
+function headerHtml(subtitle){
+  return `
+  <header>
+    <div class="turtle-badge">🐢</div>
+    <div>
+      <div class="brand-name">디지털 오르리</div>
+      <h1>${subtitle}</h1>
+      <div class="tagline">천천히, 하지만 확실하게 디지털 세상을 헤쳐나가요.</div>
+    </div>
+  </header>
+  <hr class="divider">`;
+}
+
+function renderForm(){
+  root.innerHTML = `
+    ${headerHtml(config.lectureTitle + ' 후기')}
+
+    <div class="card">
+      <span class="q-num">1</span>
+      <label class="q-title">성함 <span class="required">*</span></label>
+      <input type="text" id="f-name" placeholder="이름 또는 닉네임">
+    </div>
+
+    <div class="card">
+      <span class="q-num">2</span>
+      <label class="q-title">전화번호 <span class="required">*</span></label>
+      <div class="hint">교안 발송을 위해 확인용으로만 사용해요.</div>
+      <input type="tel" id="f-phone" placeholder="01012345678">
+    </div>
+
+    <div class="card">
+      <span class="q-num">3</span>
+      <label class="q-title">이메일</label>
+      <input type="email" id="f-email" placeholder="example@email.com">
+    </div>
+
+    <div class="card">
+      <span class="q-num">4</span>
+      <label class="q-title">후기 <span class="required">*</span></label>
+      <div class="hint">단톡방에 쓰신 후기를 복사해서 붙여넣기 해주세요.</div>
+      <textarea id="f-content" placeholder="오늘 강의 어떠셨나요?"></textarea>
+    </div>
+
+    <div class="card">
+      <label class="agree-row"><input type="checkbox" id="f-agree"> 개인정보 수집 및 이용에 동의합니다 <span class="required">*</span></label>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">완료</button>
+    <div class="error-msg" id="errMsg"></div>
+
+    <div class="footer-admin-link"><button onclick="goAdmin()">관리자 보기</button></div>
+  `;
+}
+
+window.handleSubmit = async function(){
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const content = document.getElementById('f-content').value.trim();
+  const agree = document.getElementById('f-agree').checked;
+  const err = document.getElementById('errMsg');
+
+  if(!name || !phone || !content || !agree){
+    err.textContent = '필수 항목(성함, 전화번호, 후기, 개인정보 동의)을 모두 입력해주세요.';
+    err.style.display = 'block';
+    return;
+  }
+  if(!SCRIPT_URL){
+    err.textContent = '아직 저장소(구글시트) 연결이 완료되지 않았어요. 오르리님께 문의해주세요.';
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = '제출 중...';
+
+  try{
+    await submitReview({name, phone, email, content, rating, lecture: config.lectureTitle});
+    lastSubmittedLink = config.downloadLink;
+    view = 'thanks';
+    render();
+  }catch(e){
+    err.textContent = '제출 중 오류가 발생했어요. 다시 시도해주세요.';
+    err.style.display = 'block';
+    btn.disabled = false; btn.textContent = '완료';
+  }
+};
+
+function renderThanks(){
+  const hasLink = !!config.downloadLink;
+  root.innerHTML = `
+    <div class="thanks">
+      <div class="turtle-badge">🐢</div>
+      <h2>${config.lectureTitle}에 참여해주셔서 감사합니다!</h2>
+      <p>정성스러운 후기 덕분에 오르리가 오늘도 한 걸음 더 나아갈 힘을 얻어요.<br>${hasLink ? '아래 버튼으로 오늘 강의 교안을 받아보세요.' : '교안은 순차적으로 발송될 예정이에요.'}</p>
+      ${hasLink ? `<a class="dl-btn" href="${config.downloadLink}" target="_blank" rel="noopener">📄 강의 교안 받기</a>` : ''}
+      <button class="again-link" onclick="view='form'; render();">다른 후기 남기기</button>
+    </div>
+  `;
+}
+
+window.goAdmin = function(){
+  view = adminAuthed ? 'admin' : 'admin-gate';
+  render();
+};
+
+function renderAdminGate(){
+  root.innerHTML = `
+    <div class="admin-gate">
+      <div class="turtle-badge">🐢</div>
+      <h2 style="font-family:'Gowun Batang',serif;color:var(--deep);">오르리 전용 · 후기 모아보기</h2>
+      <p style="color:var(--ink-soft);font-size:13px;">비밀번호를 입력해주세요.</p>
+      <input type="password" id="admPw" placeholder="비밀번호" onkeydown="if(event.key==='Enter') checkAdmin()">
+      <button class="submit-btn" onclick="checkAdmin()">확인</button>
+      <button class="again-link" onclick="view='form'; render();">← 후기 작성 화면으로</button>
+    </div>
+  `;
+}
+
+window.checkAdmin = async function(){
+  const v = document.getElementById('admPw').value;
+  if(!SCRIPT_URL){ toast('먼저 구글시트 연결(SCRIPT_URL)을 완료해주세요.'); return; }
+  try{
+    const res = await fetch(SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({type:'checkPassword', password:v})
+    });
+    const data = await res.json();
+    if(data.ok){
+      adminAuthed = true;
+      adminPasswordUsed = v;
+      view = 'admin';
+      await loadReviews();
+      render();
+    }else{
+      toast('비밀번호가 올바르지 않아요.');
+    }
+  }catch(e){
+    toast('확인 중 오류가 발생했어요.');
+  }
+};
+
+function renderAdmin(){
+  const lectures = Array.from(new Set(reviews.map(r=>r.lecture).filter(Boolean)));
+  const filtered = adminFilter ? reviews.filter(r=>r.lecture===adminFilter) : reviews;
+
+  root.innerHTML = `
+    ${headerHtml('후기 모아보기 (관리자)')}
+    <div class="stat-row">
+      <div class="stat"><div class="num">${reviews.length}</div><div class="lbl">전체 후기</div></div>
+      <div class="stat"><div class="num">${lectures.length}</div><div class="lbl">강의 종류</div></div>
+    </div>
+
+    <div class="settings-panel">
+      <label>강의명 (후기 작성 화면 상단에 표시돼요)</label>
+      <input type="text" id="s-lecture" value="${config.lectureTitle}">
+      <label>교안 다운로드 링크</label>
+      <input type="text" id="s-link" value="${config.downloadLink}" placeholder="https://...">
+      <label>새 관리자 비밀번호 (바꾸지 않으려면 비워두세요)</label>
+      <input type="text" id="s-pw" placeholder="새 비밀번호">
+      <div class="save-row">
+        <button onclick="saveSettings()">설정 저장</button>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <select id="filterSel" onchange="adminFilter=this.value; render();">
+        <option value="">전체 강의</option>
+        ${lectures.map(l=>`<option value="${l}" ${adminFilter===l?'selected':''}>${l}</option>`).join('')}
+      </select>
+    </div>
+
+    <div class="toolbar">
+      <button onclick="copyAll()">📋 전체 후기 복사</button>
+      <button onclick="refreshReviews()">🔄 새로고침</button>
+      <button onclick="view='form'; render();">← 작성 화면</button>
+    </div>
+
+    <div id="reviewList">
+      ${filtered.length ? filtered.map(r=>`
+        <div class="review-item">
+          <div class="top">
+            <span class="who">${escapeHtml(r.name)}</span>
+            <span class="meta">${r.lecture||''} · ${r.date||''}</span>
+          </div>
+          ${r.rating ? `<div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>` : ''}
+          <div class="content">${escapeHtml(r.content)}</div>
+          <div class="contact">☎ ${escapeHtml(r.phone||'-')} ${r.email ? ' · ✉ '+escapeHtml(r.email) : ''}</div>
+        </div>
+      `).join('') : `<div class="empty-state">아직 모인 후기가 없어요. 🐢<br>학생들에게 이 페이지 링크를 공유해보세요.</div>`}
+    </div>
+  `;
+}
+
+window.saveSettings = async function(){
+  const lectureTitle = document.getElementById('s-lecture').value.trim() || DEFAULTS.lectureTitle;
+  const downloadLink = document.getElementById('s-link').value.trim();
+  const newPassword = document.getElementById('s-pw').value.trim();
+
+  try{
+    const res = await fetch(SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({type:'saveConfig', password: adminPasswordUsed, lectureTitle, downloadLink, newPassword})
+    });
+    const data = await res.json();
+    if(data.ok){
+      config.lectureTitle = lectureTitle;
+      config.downloadLink = downloadLink;
+      if(newPassword) adminPasswordUsed = newPassword;
+      toast('설정이 저장됐어요.');
+    }else{
+      toast('저장 실패: 비밀번호를 확인해주세요.');
+    }
+  }catch(e){
+    toast('저장 중 오류가 발생했어요.');
+  }
+};
+
+window.refreshReviews = async function(){
+  toast('불러오는 중...');
+  await loadReviews();
+  render();
+  toast('새로고침 완료');
+};
+
+window.copyAll = function(){
+  const lectures = adminFilter ? [adminFilter] : null;
+  const list = adminFilter ? reviews.filter(r=>r.lecture===adminFilter) : reviews;
+  const text = list.map(r=> `[${r.name}] ${r.rating?('★'.repeat(r.rating)):''}\n${r.content}`).join('\n\n---\n\n');
+  navigator.clipboard.writeText(text).then(()=>toast('전체 후기가 복사됐어요.')).catch(()=>toast('복사에 실패했어요.'));
+};
+
+function escapeHtml(s){
+  if(!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function render(){
+  if(view==='loading') { root.innerHTML = '<div class="loading">🐢 불러오는 중...</div>'; return; }
+  if(view==='form') return renderForm();
+  if(view==='thanks') return renderThanks();
+  if(view==='admin-gate') return renderAdminGate();
+  if(view==='admin') return renderAdmin();
+}
+
+(async function init(){
+  render();
+  await loadConfig();
+  view = 'form';
+  render();
+})();
+</script>
+</body>
+</html>
